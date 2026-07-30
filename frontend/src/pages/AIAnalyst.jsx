@@ -62,7 +62,7 @@ export default function AIAnalyst() {
         })
       } else {
         setError({
-          message: errorData?.error || 'Failed to process query',
+          message: errorData?.error || errorData?.detail || 'Failed to process query',
           blocked: false
         })
       }
@@ -83,16 +83,16 @@ export default function AIAnalyst() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">AI Analyst</h1>
-          <p className="text-slate-400 mt-1">Natural language database queries with intelligent insights</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">AI Analyst</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">Natural language database queries with intelligent insights</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <div className="backdrop-blur-xl bg-slate-900/50 border border-slate-700/50 rounded-2xl p-6">
-            <h2 className="text-lg font-semibold text-white mb-4 flex items-center">
-              <svg className="w-5 h-5 mr-2 text-fuchsia-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-sm">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+              <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
               </svg>
               Ask a Question
@@ -103,7 +103,7 @@ export default function AIAnalyst() {
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
                 placeholder="Example: Show me all sensors where temperature is greater than 50 degrees"
-                className="w-full px-4 py-3 border border-slate-600/50 rounded-xl focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent outline-none resize-none bg-slate-800/50 text-white placeholder-slate-500 backdrop-blur-xl"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-colors"
                 rows="4"
                 disabled={loading}
               />
@@ -111,7 +111,7 @@ export default function AIAnalyst() {
               <button
                 type="submit"
                 disabled={loading || !question.trim()}
-                className="w-full bg-gradient-to-r from-fuchsia-600/20 to-pink-600/20 hover:from-fuchsia-600/30 hover:to-pink-600/30 border border-fuchsia-500/30 disabled:opacity-50 disabled:cursor-not-allowed text-fuchsia-300 font-medium py-3 rounded-xl transition-all backdrop-blur-xl"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-xl transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
               >
                   {loading ? (
                     <span className="flex items-center justify-center">
@@ -126,20 +126,20 @@ export default function AIAnalyst() {
               </form>
 
             {error && (
-              <div className={`mt-4 p-4 rounded-xl border backdrop-blur-xl ${error.blocked ? 'bg-red-500/10 border-red-500/50' : 'bg-yellow-500/10 border-yellow-500/50'}`}>
+              <div className={`mt-4 p-4 rounded-xl border ${error.blocked ? 'bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800' : 'bg-yellow-50 border-yellow-200 dark:bg-yellow-900/20 dark:border-yellow-800'}`}>
                 <div className="flex items-start">
                   <svg className={`w-5 h-5 mr-3 mt-0.5 ${error.blocked ? 'text-red-400' : 'text-yellow-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                   </svg>
                   <div>
-                    <p className={`font-semibold ${error.blocked ? 'text-red-300' : 'text-yellow-300'}`}>
+                    <p className={`font-semibold ${error.blocked ? 'text-red-800 dark:text-red-300' : 'text-yellow-800 dark:text-yellow-300'}`}>
                       {error.blocked ? 'Query Blocked' : 'Error'}
                     </p>
-                    <p className={`text-sm mt-1 ${error.blocked ? 'text-red-400' : 'text-yellow-400'}`}>
+                    <p className={`text-sm mt-1 ${error.blocked ? 'text-red-700 dark:text-red-400' : 'text-yellow-700 dark:text-yellow-400'}`}>
                       {error.message}
                     </p>
                     {error.reason && (
-                      <p className="text-sm mt-2 font-medium text-red-400">
+                      <p className="text-sm mt-2 font-medium text-red-600 dark:text-red-400">
                         Reason: {error.reason}
                       </p>
                     )}
@@ -150,8 +150,8 @@ export default function AIAnalyst() {
             </div>
 
           {response && (
-            <div className="backdrop-blur-xl bg-slate-900/50 border border-slate-700/50 rounded-2xl p-6">
-              <h2 className="text-lg font-semibold text-white mb-4 flex items-center">
+            <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-sm">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
                 <svg className="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -160,28 +160,28 @@ export default function AIAnalyst() {
               
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-sm font-medium text-slate-400 mb-2">Answer</h3>
-                  <div className="p-4 bg-fuchsia-500/10 border border-fuchsia-500/30 rounded-xl backdrop-blur-xl">
-                    <p className="text-sm text-white">{response.naturalAnswer}</p>
+                  <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Answer</h3>
+                  <div className="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl">
+                    <p className="text-sm text-gray-800 dark:text-gray-200">{response.naturalAnswer}</p>
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-medium text-slate-400 mb-2">Generated Query</h3>
-                  <div className="p-4 bg-black/50 border border-slate-700/50 rounded-xl overflow-x-auto">
-                    <div className="text-xs text-slate-400 mb-2">Type: <span className="text-green-400">{response.mongoQuery.type}</span></div>
-                    <pre className="text-xs text-green-400 font-mono whitespace-pre-wrap">
+                  <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Generated Query</h3>
+                  <div className="p-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl overflow-x-auto">
+                    <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">Type: <span className="text-blue-600 dark:text-blue-400">{response.mongoQuery.type}</span></div>
+                    <pre className="text-xs text-gray-800 dark:text-gray-300 font-mono whitespace-pre-wrap">
                       {JSON.stringify(response.mongoQuery.query, null, 2)}
                     </pre>
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-medium text-slate-400 mb-2">
+                  <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
                     Data ({Array.isArray(response.result) ? response.result.length : 1} records)
                   </h3>
-                  <div className="p-4 bg-slate-800/50 border border-slate-700/50 rounded-xl max-h-96 overflow-y-auto custom-scrollbar">
-                    <pre className="text-xs text-slate-300 font-mono whitespace-pre-wrap">
+                  <div className="p-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl max-h-96 overflow-y-auto custom-scrollbar">
+                    <pre className="text-xs text-gray-800 dark:text-gray-300 font-mono whitespace-pre-wrap">
                       {JSON.stringify(response.result, null, 2)}
                     </pre>
                   </div>
@@ -192,15 +192,15 @@ export default function AIAnalyst() {
           </div>
 
         <div className="lg:col-span-1">
-          <div className="backdrop-blur-xl bg-slate-900/50 border border-slate-700/50 rounded-2xl p-6 sticky top-6">
-            <h2 className="text-lg font-semibold text-white mb-4 flex items-center justify-between">
+          <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 shadow-sm sticky top-6">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center justify-between">
               <span className="flex items-center">
-                <svg className="w-5 h-5 mr-2 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 Recent Queries
               </span>
-              <button onClick={loadQueryHistory} className="text-fuchsia-400 hover:text-fuchsia-300 transition-colors" title="Refresh">
+              <button onClick={loadQueryHistory} className="text-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" title="Refresh">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
@@ -209,7 +209,7 @@ export default function AIAnalyst() {
               
             {loadingHistory ? (
               <div className="text-center py-8">
-                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-fuchsia-500"></div>
+                <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
               </div>
             ) : history.length > 0 ? (
               <div className="space-y-2 max-h-[calc(100vh-16rem)] overflow-y-auto custom-scrollbar">
@@ -217,21 +217,21 @@ export default function AIAnalyst() {
                   <div
                     key={item._id || idx}
                     onClick={() => handleHistoryClick(item)}
-                    className={`p-3 rounded-xl border transition-all backdrop-blur-xl ${item.blocked ? 'bg-red-500/10 border-red-500/50 cursor-not-allowed opacity-75' : 'bg-slate-800/50 border-slate-700/50 hover:bg-slate-800/70 cursor-pointer'}`}
+                    className={`p-3 rounded-xl border transition-all ${item.blocked ? 'bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800/50 cursor-not-allowed opacity-75' : 'bg-gray-50 border-gray-200 dark:bg-gray-700/30 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700/50 cursor-pointer'}`}
                   >
                     <div className="flex items-start justify-between mb-1">
-                      <span className={`text-xs font-medium ${item.blocked ? 'text-red-400' : 'text-fuchsia-400'}`}>
+                      <span className={`text-xs font-medium ${item.blocked ? 'text-red-600 dark:text-red-400' : 'text-blue-600 dark:text-blue-400'}`}>
                         {item.blocked ? 'Blocked' : 'Success'}
                       </span>
-                      <span className="text-xs text-slate-500">
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
                         {new Date(item.timestamp).toLocaleTimeString()}
                       </span>
                     </div>
-                    <p className="text-sm text-slate-300 line-clamp-2">
+                    <p className="text-sm text-gray-800 dark:text-gray-300 line-clamp-2">
                       {item.question}
                     </p>
                     {item.blocked && item.blockReason && (
-                      <p className="text-xs text-red-400 mt-1">
+                      <p className="text-xs text-red-600 dark:text-red-400 mt-1">
                         {item.blockReason}
                       </p>
                     )}
@@ -239,7 +239,7 @@ export default function AIAnalyst() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-8 text-slate-400 text-sm">
+              <div className="text-center py-8 text-gray-500 dark:text-gray-400 text-sm">
                 <svg className="w-12 h-12 mx-auto mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>

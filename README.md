@@ -1,17 +1,21 @@
-# Stream Watch - Real-Time Intelligent Database Monitoring with prometheus and grafana
+# Stream Watch - Real-Time Intelligent Database Monitoring
+
+## 🎉 Major Update - Version 2.0
 
 Stream Watch has been completely redesigned with enterprise-grade features, professional UI, and comprehensive security!
 
-- **MongoDB User Authentication** - Full registration and login system
-- **Persistent Query History** - Last 10 queries saved and displayed
-- **Malicious Query Detection** - Comprehensive security validation
-- **Professional UI Redesign** - Modern dark/light modes
-- **No Emojis** - Clean, professional SVG icons throughout
-- **Elegant Design** - White/blue and black/blue color schemes
+### ✨ What's New in v2.0
+
+- 🔐 **MongoDB User Authentication** - Full registration and login system
+- 📊 **Persistent Query History** - Last 10 queries saved and displayed
+- 🛡️ **Malicious Query Detection** - Comprehensive security validation
+- 🎨 **Professional UI Redesign** - Modern dark/light modes
+- 🚫 **No Emojis** - Clean, professional SVG icons throughout
+- 🎯 **Elegant Design** - White/blue and black/blue color schemes
 
 ---
 
-## Documentation
+## 📚 Documentation
 
 - **[QUICK_START.md](QUICK_START.md)** - Get started in 5 minutes
 - **[UPGRADE_NOTES.md](UPGRADE_NOTES.md)** - Technical implementation details
@@ -22,7 +26,7 @@ Stream Watch has been completely redesigned with enterprise-grade features, prof
 
 ---
 
-## Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
 - Node.js (v16+)
@@ -68,28 +72,28 @@ npm run dev
 
 ---
 
-## Key Features
+## 🔥 Key Features
 
-### Secure Authentication
+### 🔐 Secure Authentication
 - User registration with validation (min 3 chars username, 6 chars password)
 - MongoDB-backed user accounts
 - Session management
 - Ready for bcrypt password hashing in production
 
-### AI-Powered Queries
+### 🤖 AI-Powered Queries
 - Natural language to MongoDB conversion using Google Gemini
 - Intelligent query generation
 - Natural language answers
 - Syntax-highlighted results
 
-### Query History
+### 📊 Query History
 - Last 10 queries automatically saved to MongoDB
 - Persists across sessions and page reloads
 - Click to reuse previous queries
 - Shows both successful and blocked queries
 - Real-time updates
 
-### Security Protection
+### 🛡️ Security Protection
 Automatically blocks dangerous queries:
 - Database/collection drops
 - Unauthorized deletions
@@ -98,7 +102,7 @@ Automatically blocks dangerous queries:
 - Shutdown commands
 - Collection manipulation
 
-### Professional UI
+### 🎨 Professional UI
 - **Light Mode**: White and blue color scheme with elegant gradients
 - **Dark Mode**: Black and blue color scheme with modern aesthetics
 - Professional SVG icons (no emojis)
@@ -108,7 +112,7 @@ Automatically blocks dangerous queries:
 
 ---
 
-## Security Features
+## 🔒 Security Features
 
 ### Pattern Detection
 The system blocks queries containing:
@@ -136,7 +140,7 @@ The system blocks queries containing:
 
 ---
 
-## Database Collections
+## 📊 Database Collections
 
 ### users
 ```javascript
@@ -179,8 +183,40 @@ The system blocks queries containing:
 
 ---
 
+## 🔧 API Endpoints
 
-## Testing Security
+### Authentication
+```
+POST /api/auth/register - Create new user account
+POST /api/auth/login - Authenticate existing user
+```
+
+### AI Queries
+```
+POST /api/ai-query - Execute AI query with security validation
+GET /api/ai-query-history/:username?limit=10 - Get user's query history
+```
+
+### Sensor Data CRUD
+```
+GET /api/sensor-data - List all sensor data
+GET /api/sensor-data/:id - Get single entry
+POST /api/sensor-data - Create new entry
+PUT /api/sensor-data/:id - Update entry
+DELETE /api/sensor-data/:id - Delete entry
+```
+
+### Monitoring
+```
+GET /metrics - Prometheus metrics
+GET /health - Health check
+GET /admin/stats - Admin dashboard
+GET /api/query-history - Query history for Grafana
+```
+
+---
+
+## 🧪 Testing Security
 
 Try these queries to see security in action:
 
@@ -202,7 +238,29 @@ Try these queries to see security in action:
 
 ---
 
-## Production Deployment
+## 🎨 Design System
+
+### Color Schemes
+
+**Light Mode**
+- Background: White (#FFFFFF)
+- Surface: Gray-50 (#F9FAFB)
+- Accent: Blue (#3B82F6)
+- Text: Gray-900 (#111827)
+- Borders: Gray-200 (#E5E7EB)
+
+**Dark Mode**
+- Background: Gray-900 (#111827)
+- Surface: Gray-800 (#1F2937)
+- Accent: Blue (#3B82F6)
+- Text: White (#FFFFFF)
+- Borders: Gray-700 (#374151)
+
+*See [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) for complete specifications*
+
+---
+
+## 🚀 Production Deployment
 
 ### Security Checklist
 - [ ] Install bcrypt: `npm install bcrypt`
@@ -228,7 +286,7 @@ Try these queries to see security in action:
 
 ---
 
-## Monitoring
+## 📈 Monitoring
 
 ### Prometheus Metrics
 - `client_query_traffic` - Query traffic by user and type
@@ -236,6 +294,7 @@ Try these queries to see security in action:
 - Response times and error rates
 
 ### Admin Dashboard
+Access at `/admin/stats` to view:
 - Active users and their statistics
 - Query history (last 50)
 - Packet statistics
@@ -243,7 +302,32 @@ Try these queries to see security in action:
 
 ---
 
-## Troubleshooting
+## 💡 Example Queries
+
+### Simple Queries
+```
+"Show all sensors"
+"Find temperature above 50"
+"What is the average water level?"
+```
+
+### Complex Queries
+```
+"Show sensors where voltage is between 220 and 240"
+"Find the maximum temperature recorded today"
+"Group sensors by location and show average temperature"
+```
+
+### Blocked Queries (for testing)
+```
+"drop database streamwatch"
+"delete all sensor data"
+"$where temperature > 50"
+```
+
+---
+
+## 🆘 Troubleshooting
 
 ### Backend won't start
 - Check MongoDB connection string in `.env`
@@ -267,10 +351,10 @@ Try these queries to see security in action:
 
 ---
 
-## Tech Stack
+## 🎯 Tech Stack
 
 ### Backend
-- Node.js + Express +FastAPI
+- Node.js + Express + FastAPI
 - MongoDB + Mongoose
 - Google Gemini AI (Flash 2.0)
 - Prometheus metrics
@@ -284,5 +368,72 @@ Try these queries to see security in action:
 - Vite
 
 ---
+
+## 📝 Architecture
+
+```
+┌─────────────┐
+│   Browser   │
+└──────┬──────┘
+       │
+       ├─── React Frontend (Vite + Tailwind)
+       │    ├── Login/Register
+       │    ├── Data Hub (CRUD)
+       │    ├── AI Analyst (Query + History)
+       │    └── System Vitals (Metrics)
+       │
+       ↓
+┌──────────────────┐
+│  Express Server  │
+├──────────────────┤
+│ • Authentication │
+│ • AI Query API   │
+│ • CRUD API       │
+│ • Security Layer │
+│ • Metrics        │
+└────────┬─────────┘
+         │
+         ├─── MongoDB Atlas
+         │    ├── users
+         │    ├── query_history
+         │    └── sensor_data
+         │
+         └─── Google Gemini AI
+              └── Natural Language Processing
+```
+
+---
+
+## 🤝 Contributing
+
+This is a demonstration project showcasing:
+- Full-stack MERN development
+- AI integration with Google Gemini
+- Security best practices
+- Modern UI/UX design
+- Professional documentation
+
+Feel free to use as a reference or starting point!
+
+---
+
+## 📝 License
+
+MIT License - Free to use for learning and reference.
+
+---
+
+## 🎉 Acknowledgments
+
+Built with modern web technologies and best practices:
+- Security-first approach
+- User-centric design
+- Professional UI/UX
+- Comprehensive documentation
+- Production-ready architecture
+
+---
+
+**Stream Watch v2.0** - Professional Database Monitoring Made Simple
 
 For detailed information, see the documentation files in the repository.
