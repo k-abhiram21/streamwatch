@@ -47,46 +47,46 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex items-center justify-center px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center px-4 relative overflow-hidden transition-colors duration-200">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-24 -top-24 w-72 h-72 rounded-full bg-fuchsia-700/40 blur-3xl" />
-        <div className="absolute -right-16 top-20 w-72 h-72 rounded-full bg-purple-700/40 blur-3xl" />
-        <div className="absolute -right-24 bottom-0 w-80 h-80 rounded-full bg-pink-600/30 blur-3xl" />
+        <div className="absolute -left-24 -top-24 w-72 h-72 rounded-full bg-blue-400/20 dark:bg-blue-600/10 blur-3xl" />
+        <div className="absolute -right-16 top-20 w-72 h-72 rounded-full bg-indigo-400/20 dark:bg-indigo-600/10 blur-3xl" />
+        <div className="absolute -right-24 bottom-0 w-80 h-80 rounded-full bg-cyan-400/20 dark:bg-cyan-600/10 blur-3xl" />
       </div>
 
       <div className="max-w-4xl w-full relative flex flex-col md:flex-row items-stretch gap-10">
-        <div className="hidden md:flex flex-col justify-center flex-1 text-white">
-          <p className="text-xs uppercase tracking-[0.3em] text-slate-400 mb-4">
+        <div className="hidden md:flex flex-col justify-center flex-1 text-gray-900 dark:text-white">
+          <p className="text-xs uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 mb-4">
             Login
           </p>
-          <h1 className="text-4xl md:text-5xl font-bold tracking-[0.24em] mb-3">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-[0.24em] mb-3 text-blue-600 dark:text-blue-400">
             STREAM WATCH
           </h1>
-          <div className="inline-flex items-center border border-slate-500/70 px-4 py-2 rounded-full text-xs uppercase tracking-[0.25em]">
+          <div className="inline-flex items-center border border-gray-300 dark:border-gray-700 px-4 py-2 rounded-full text-xs uppercase tracking-[0.25em] text-gray-600 dark:text-gray-300">
             <span>Monitor your data</span>
           </div>
         </div>
 
         <div className="flex-1">
-          <div className="backdrop-blur-xl bg-slate-900/80 border border-slate-700/70 rounded-2xl shadow-[0_32px_80px_rgba(15,23,42,0.9)] p-7 md:p-8">
-            <div className="mb-6 text-white">
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-400 mb-3">
+          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xl p-7 md:p-8">
+            <div className="mb-6 text-gray-900 dark:text-white">
+              <p className="text-xs uppercase tracking-[0.3em] text-gray-500 dark:text-gray-400 mb-3">
                 {activeTab === 'user' ? 'Login' : 'Admin Login'}
               </p>
               <h2 className="text-2xl font-semibold tracking-wide mb-1">
                 Access your Stream Watch console
               </h2>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 Enter your credentials to continue. Admins use the same form with elevated access.
               </p>
             </div>
 
             {/* Tabs */}
-            <div className="flex mb-6 bg-slate-900/80 rounded-full p-1 border border-slate-700/80">
+            <div className="flex mb-6 bg-gray-100 dark:bg-gray-900/80 rounded-full p-1 border border-gray-200 dark:border-gray-700">
               <button
                 className={`flex-1 py-2 rounded-full text-xs font-semibold tracking-[0.18em] uppercase transition-all ${activeTab === 'user'
-                    ? 'bg-gradient-to-r from-fuchsia-600 via-pink-600 to-rose-600 text-white shadow-lg shadow-fuchsia-700/50'
-                    : 'text-slate-400 hover:text-slate-100'
+                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
                   }`}
                 onClick={() => setActiveTab('user')}
               >
@@ -94,8 +94,8 @@ const Login = () => {
               </button>
               <button
                 className={`flex-1 py-2 rounded-full text-xs font-semibold tracking-[0.18em] uppercase transition-all ${activeTab === 'admin'
-                    ? 'bg-gradient-to-r from-indigo-500 via-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-700/50'
-                    : 'text-slate-400 hover:text-slate-100'
+                    ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/30'
+                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
                   }`}
                 onClick={() => setActiveTab('admin')}
               >
@@ -104,35 +104,35 @@ const Login = () => {
             </div>
 
             {error && (
-              <div className="bg-red-500/10 border border-red-500/50 text-red-400 px-4 py-3 rounded-lg mb-6 text-xs">
+              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-lg mb-6 text-xs">
                 {error}
               </div>
             )}
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-2 tracking-wide">
+                <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-2 tracking-wide">
                   Username
                 </label>
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full bg-slate-900/80 border border-slate-600 rounded-xl px-4 py-3 text-sm text-slate-50 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent transition-all"
+                  className="w-full bg-white dark:bg-gray-900/80 border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   placeholder="Enter your username"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-slate-300 mb-2 tracking-wide">
+                <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-2 tracking-wide">
                   Password
                 </label>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-slate-900/80 border border-slate-600 rounded-xl px-4 py-3 text-sm text-slate-50 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 focus:border-transparent transition-all"
+                  className="w-full bg-white dark:bg-gray-900/80 border border-gray-300 dark:border-gray-600 rounded-xl px-4 py-3 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                   placeholder="Enter your password"
                   required
                 />
@@ -142,8 +142,8 @@ const Login = () => {
                 type="submit"
                 disabled={loading}
                 className={`w-full py-3.5 rounded-xl font-semibold text-sm tracking-[0.16em] uppercase text-white shadow-lg transition-all transform hover:translate-y-[1px] active:scale-[0.99] ${activeTab === 'user'
-                    ? 'bg-gradient-to-r from-fuchsia-600 via-pink-600 to-rose-600 hover:from-fuchsia-500 hover:to-rose-500 shadow-fuchsia-700/40'
-                    : 'bg-gradient-to-r from-indigo-500 via-violet-600 to-fuchsia-600 hover:from-indigo-400 hover:to-fuchsia-500 shadow-indigo-700/40'
+                    ? 'bg-blue-600 hover:bg-blue-700 shadow-blue-500/40'
+                    : 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-500/40'
                   }`}
               >
                 {loading ? (
@@ -160,10 +160,10 @@ const Login = () => {
               </button>
             </form>
 
-            <div className="mt-6 flex items-center justify-between text-xs text-slate-400">
+            <div className="mt-6 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
               <Link
                 to="/forgot-password"
-                className="hover:text-slate-100 transition-colors underline underline-offset-4"
+                className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors underline underline-offset-4"
               >
                 Forgot Password?
               </Link>
@@ -171,7 +171,7 @@ const Login = () => {
                 Don&apos;t have an account?{' '}
                 <Link
                   to="/register"
-                  className="text-fuchsia-300 hover:text-fuchsia-100 font-medium transition-colors underline underline-offset-4"
+                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors underline underline-offset-4"
                 >
                   Register
                 </Link>

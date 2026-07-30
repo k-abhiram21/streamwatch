@@ -1,10 +1,12 @@
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useTheme } from '../context/ThemeContext'
 
 export default function Layout() {
   const navigate = useNavigate()
   const location = useLocation()
   const { user, logout } = useAuth()
+  const { theme, toggleTheme } = useTheme()
 
   const getActiveTab = () => {
     if (location.pathname === '/' || location.pathname === '/datahub') return 'data-hub'
@@ -82,28 +84,21 @@ export default function Layout() {
   }
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Animated Background */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute -left-24 -top-24 w-96 h-96 rounded-full bg-fuchsia-700/20 blur-3xl animate-pulse" />
-        <div className="absolute -right-16 top-20 w-96 h-96 rounded-full bg-purple-700/20 blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        <div className="absolute left-1/2 bottom-0 w-96 h-96 rounded-full bg-pink-600/15 blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-      </div>
-
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 relative overflow-hidden transition-colors duration-200">
       {/* Top Navigation */}
-      <nav className="relative z-50 backdrop-blur-xl bg-slate-950/80 border-b border-slate-800/50 shadow-2xl">
+      <nav className="relative z-50 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-fuchsia-600 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-fuchsia-500/50">
+              <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               <div>
-                <h1 className="text-lg font-bold text-white tracking-tight">Stream Watch</h1>
-                <p className="text-xs text-slate-400 -mt-0.5">Monitoring Platform</p>
+                <h1 className="text-lg font-bold text-gray-900 dark:text-white tracking-tight">Stream Watch</h1>
+                <p className="text-xs text-gray-600 dark:text-gray-400 -mt-0.5">Monitoring Platform</p>
               </div>
             </div>
 
@@ -115,8 +110,8 @@ export default function Layout() {
                   to={item.path}
                   className={`group relative flex items-center space-x-2 px-4 py-2 rounded-xl transition-all ${
                     activeTab === item.id
-                      ? 'bg-gradient-to-r from-fuchsia-600/20 to-pink-600/20 text-white border border-fuchsia-500/30'
-                      : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                      ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800/30'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800/50'
                   }`}
                 >
                   <div className={`transition-transform ${activeTab === item.id ? 'scale-110' : 'group-hover:scale-110'}`}>
@@ -124,7 +119,7 @@ export default function Layout() {
                   </div>
                   <span className="text-sm font-medium">{item.label}</span>
                   {activeTab === item.id && (
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-gradient-to-r from-fuchsia-500 to-pink-500 rounded-full" />
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-full" />
                   )}
                 </Link>
               ))}
@@ -132,13 +127,30 @@ export default function Layout() {
 
             {/* User Menu */}
             <div className="flex items-center space-x-3">
-              <div className="backdrop-blur-xl bg-slate-900/50 border border-slate-700/50 rounded-xl px-4 py-2 flex items-center space-x-3">
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                title="Toggle Theme"
+              >
+                {theme === 'dark' ? (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                  </svg>
+                )}
+              </button>
+
+              <div className="bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700/50 rounded-xl px-4 py-2 flex items-center space-x-3">
                 <div className="text-right">
-                  <p className="text-sm font-semibold text-white">{user?.username}</p>
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">{user?.username}</p>
                   <span className={`text-xs px-2 py-0.5 rounded-full ${
                     user?.role === 'admin' 
-                      ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' 
-                      : 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
+                      ? 'bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-400 border border-purple-200 dark:border-purple-500/30' 
+                      : 'bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-500/30'
                   }`}>
                     {user?.role}
                   </span>
@@ -147,7 +159,7 @@ export default function Layout() {
 
               <button
                 onClick={handleLogout}
-                className="group relative px-4 py-2 bg-gradient-to-r from-red-600/20 to-red-700/20 hover:from-red-600/30 hover:to-red-700/30 border border-red-500/30 rounded-xl transition-all backdrop-blur-xl flex items-center space-x-2 text-red-400 hover:text-red-300"
+                className="group relative px-4 py-2 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/30 border border-red-200 dark:border-red-800/30 rounded-xl transition-all flex items-center space-x-2 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />

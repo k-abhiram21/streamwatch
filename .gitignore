@@ -29,3 +29,6 @@ __pycache__/
 *$py.class
 .venv/
 venv/
+
+# Local Database
+.mongodb_data/
